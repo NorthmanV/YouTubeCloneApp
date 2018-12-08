@@ -13,6 +13,7 @@
 		87A0524721B8537B00906306 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87A0524521B8537B00906306 /* LaunchScreen.storyboard */; };
 		87A0524F21BAFB0200906306 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0524E21BAFB0200906306 /* VideoCell.swift */; };
 		87A0525121BB03EF00906306 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0525021BB03EF00906306 /* UIViewExtension.swift */; };
+		87A0525321BBE4FE00906306 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0525221BBE4FE00906306 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		87A0524821B8537B00906306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87A0524E21BAFB0200906306 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		87A0525021BB03EF00906306 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		87A0525221BBE4FE00906306 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,14 +59,39 @@
 			isa = PBXGroup;
 			children = (
 				87A0523C21B8537A00906306 /* AppDelegate.swift */,
-				87A0523E21B8537A00906306 /* HomeViewController.swift */,
-				87A0524E21BAFB0200906306 /* VideoCell.swift */,
-				87A0525021BB03EF00906306 /* UIViewExtension.swift */,
+				87A0525421BC0C1700906306 /* Controllers */,
+				87A0525521BC0C2500906306 /* Views */,
+				87A0525621BC0C3A00906306 /* Helpers */,
 				87A0524321B8537B00906306 /* Assets.xcassets */,
 				87A0524521B8537B00906306 /* LaunchScreen.storyboard */,
 				87A0524821B8537B00906306 /* Info.plist */,
 			);
 			path = YouTubeCloneApp;
+			sourceTree = "<group>";
+		};
+		87A0525421BC0C1700906306 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				87A0523E21B8537A00906306 /* HomeViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		87A0525521BC0C2500906306 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				87A0524E21BAFB0200906306 /* VideoCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		87A0525621BC0C3A00906306 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				87A0525021BB03EF00906306 /* UIViewExtension.swift */,
+				87A0525221BBE4FE00906306 /* UIColorExtension.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +166,7 @@
 			files = (
 				87A0523F21B8537A00906306 /* HomeViewController.swift in Sources */,
 				87A0523D21B8537A00906306 /* AppDelegate.swift in Sources */,
+				87A0525321BBE4FE00906306 /* UIColorExtension.swift in Sources */,
 				87A0525121BB03EF00906306 /* UIViewExtension.swift in Sources */,
 				87A0524F21BAFB0200906306 /* VideoCell.swift in Sources */,
 			);
