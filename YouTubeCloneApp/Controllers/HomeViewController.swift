@@ -9,6 +9,11 @@
 import UIKit
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    let menuBar: MenuBar = {
+        let menuBar = MenuBar()
+        return menuBar
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +28,16 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         titleLabel.textColor = .white
         titleLabel.font = UIFont.systemFont(ofSize: 20)
         navigationItem.titleView = titleLabel
+        navigationController?.navigationBar.shadowImage = UIImage()
+        setupMenuBar()
+        collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+    }
+    
+    private func setupMenuBar() {
+        view.addSubview(menuBar)
+        view.addConstraintsWithFormat("H:|[v0]|", views: menuBar)
+        view.addConstraintsWithFormat("V:|[v0(50)]", views: menuBar)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
