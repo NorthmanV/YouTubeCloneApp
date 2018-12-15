@@ -10,6 +10,19 @@ import UIKit
 
 class VideoCell: BaseCell {
     
+    var video: Video? {
+        didSet {
+            titleLabel.text = video?.title
+            thumbnailImageView.image = UIImage(named: video!.thumbnailImage!)
+            userProfileImageView.image = UIImage(named: video!.channel!.profileImageName!)
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.groupingSeparator = " "
+            let nsNumber = NSNumber(value: video!.numberOfViews!)
+            subtitleTextView.text = "\(video!.channel!.name!) ・ \(numberFormatter.string(from: nsNumber)!) ・ 2 years ago"
+        }
+    }
+    
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "kiss")
@@ -29,6 +42,7 @@ class VideoCell: BaseCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "KISS - Love Gun"
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -49,6 +63,8 @@ class VideoCell: BaseCell {
         return view
     }()
     
+    var titleLabelHeightConstraint: NSLayoutConstraint?
+    
     override func setupViews() {
         super.setupViews()
         addSubview(thumbnailImageView)
@@ -58,13 +74,12 @@ class VideoCell: BaseCell {
         addSubview(separatorView)
         addConstraintsWithFormat("H:|-16-[v0]-16-|", views: thumbnailImageView, separatorView)
         addConstraintsWithFormat("H:|-16-[v0(44)]", views: userProfileImageView)
-        addConstraintsWithFormat("V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, userProfileImageView,separatorView)
+        addConstraintsWithFormat("V:|-16-[v0]-8-[v1(44)]-20-[v2(1)]|", views: thumbnailImageView, userProfileImageView,separatorView)
         addConstraintsWithFormat("H:|[v0]|", views: separatorView)
         
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: 8))
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: userProfileImageView, attribute: .right, multiplier: 1, constant: 8))
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 20))
 
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 4))
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .left, relatedBy: .equal, toItem: userProfileImageView, attribute: .right, multiplier: 1, constant: 8))

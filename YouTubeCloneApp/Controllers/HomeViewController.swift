@@ -10,6 +10,26 @@ import UIKit
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    let videos: [Video] = {
+        let kissChannel = Channel()
+        kissChannel.name = "KISSOfficial"
+        kissChannel.profileImageName = "kiss_profile"
+        
+        let loveGunVideo = Video()
+        loveGunVideo.title = "KISS - Love Gun"
+        loveGunVideo.thumbnailImage = "kiss"
+        loveGunVideo.numberOfViews = 502_354_871
+        loveGunVideo.channel = kissChannel
+        
+        let liveVideo = Video()
+        liveVideo.title = "Kiss. Live Concert in San Francisco at 2015"
+        liveVideo.thumbnailImage = "kiss_live"
+        liveVideo.numberOfViews = 138_925_529
+        liveVideo.channel = kissChannel
+        
+        return [loveGunVideo, liveVideo]
+    }()
+    
     let menuBar: MenuBar = {
         let menuBar = MenuBar()
         return menuBar
@@ -32,6 +52,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         setupMenuBar()
         collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        setupNavBarButtons()
     }
     
     private func setupMenuBar() {
@@ -40,18 +61,35 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         view.addConstraintsWithFormat("V:|[v0(50)]", views: menuBar)
     }
     
+    private func setupNavBarButtons() {
+        let searchImage = UIImage(named: "search")?.withRenderingMode(.alwaysOriginal)
+        let searchBarButtonItem = UIBarButtonItem(image: searchImage, style: .plain, target: self, action: #selector(handleSearch))
+        let moreImage = UIImage(named: "more")?.withRenderingMode(.alwaysOriginal)
+        let moreBarButtonItem = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(handleMore))
+        navigationItem.rightBarButtonItems = [moreBarButtonItem, searchBarButtonItem]
+    }
+    
+    @objc func handleSearch() {
+        
+    }
+    
+    @objc func handleMore() {
+        
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return videos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
+        cell.video = videos[indexPath.row]
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height: CGFloat = (view.frame.width - 32) * 9 / 16
-        return CGSize(width: view.frame.width, height: height + 16 + 68)
+        return CGSize(width: view.frame.width, height: height + 20 + 68)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
