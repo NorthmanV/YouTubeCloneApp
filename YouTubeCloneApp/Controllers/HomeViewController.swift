@@ -10,25 +10,27 @@ import UIKit
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    let videos: [Video] = {
-        let kissChannel = Channel()
-        kissChannel.name = "KISSOfficial"
-        kissChannel.profileImageName = "kiss_profile"
-        
-        let loveGunVideo = Video()
-        loveGunVideo.title = "KISS - Love Gun"
-        loveGunVideo.thumbnailImage = "kiss"
-        loveGunVideo.numberOfViews = 502_354_871
-        loveGunVideo.channel = kissChannel
-        
-        let liveVideo = Video()
-        liveVideo.title = "Kiss. Live Concert in San Francisco at 2015"
-        liveVideo.thumbnailImage = "kiss_live"
-        liveVideo.numberOfViews = 138_925_529
-        liveVideo.channel = kissChannel
-        
-        return [loveGunVideo, liveVideo]
-    }()
+//    let videos: [Video] = {
+//        let kissChannel = Channel()
+//        kissChannel.name = "KISSOfficial"
+//        kissChannel.profileImageName = "kiss_profile"
+//
+//        let loveGunVideo = Video()
+//        loveGunVideo.title = "KISS - Love Gun"
+//        loveGunVideo.thumbnailImage = "kiss"
+//        loveGunVideo.numberOfViews = 502_354_871
+//        loveGunVideo.channel = kissChannel
+//
+//        let liveVideo = Video()
+//        liveVideo.title = "Kiss. Live Concert in San Francisco at 2015"
+//        liveVideo.thumbnailImage = "kiss_live"
+//        liveVideo.numberOfViews = 138_925_529
+//        liveVideo.channel = kissChannel
+//
+//        return [loveGunVideo, liveVideo]
+//    }()
+    
+    var videos = [Video]()
     
     let menuBar: MenuBar = {
         let menuBar = MenuBar()
@@ -53,6 +55,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         setupNavBarButtons()
+        
+        Dataservice.shared.downloadVideos { (videos) in
+            self.videos = videos
+            print(videos)
+            self.collectionView.reloadData()
+        }
     }
     
     private func setupMenuBar() {
@@ -95,6 +103,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-
+    
 }
 

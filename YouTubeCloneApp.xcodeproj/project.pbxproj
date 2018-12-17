@@ -19,6 +19,7 @@
 		87A0525821BD25F300906306 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0525721BD25F300906306 /* MenuBar.swift */; };
 		87A0525A21BD2DE900906306 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0525921BD2DE900906306 /* MenuCell.swift */; };
 		87A0525C21BD2E8B00906306 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0525B21BD2E8B00906306 /* BaseCell.swift */; };
+		87C690CC21C823D2004E915D /* Dataservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C690CB21C823D2004E915D /* Dataservice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		87A0525721BD25F300906306 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		87A0525921BD2DE900906306 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		87A0525B21BD2E8B00906306 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		87C690CB21C823D2004E915D /* Dataservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataservice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				87A0523C21B8537A00906306 /* AppDelegate.swift */,
+				87C690CB21C823D2004E915D /* Dataservice.swift */,
 				8738A29D21C512860074865A /* Model */,
 				87A0525521BC0C2500906306 /* Views */,
 				87A0525421BC0C1700906306 /* Controllers */,
@@ -194,6 +197,7 @@
 				87A0525821BD25F300906306 /* MenuBar.swift in Sources */,
 				8738A29F21C5129C0074865A /* Video.swift in Sources */,
 				87A0525C21BD2E8B00906306 /* BaseCell.swift in Sources */,
+				87C690CC21C823D2004E915D /* Dataservice.swift in Sources */,
 				87A0525321BBE4FE00906306 /* UIColorExtension.swift in Sources */,
 				87A0525121BB03EF00906306 /* UIViewExtension.swift in Sources */,
 				87A0524F21BAFB0200906306 /* VideoCell.swift in Sources */,

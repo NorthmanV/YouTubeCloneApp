@@ -13,8 +13,12 @@ class VideoCell: BaseCell {
     var video: Video? {
         didSet {
             titleLabel.text = video?.title
-            thumbnailImageView.image = UIImage(named: video!.thumbnailImage!)
-            userProfileImageView.image = UIImage(named: video!.channel!.profileImageName!)
+            Dataservice.shared.downloadImage(from: video!.thumbnailImage!) { (image) in
+                self.thumbnailImageView.image = image
+            }
+            Dataservice.shared.downloadImage(from: video!.channel!.profileImageName!) { (image) in
+                self.userProfileImageView.image = image
+            }
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
             numberFormatter.groupingSeparator = " "
@@ -35,6 +39,7 @@ class VideoCell: BaseCell {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "kiss_profile")
         imageView.layer.cornerRadius = 22
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
     }()

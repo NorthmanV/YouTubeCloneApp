@@ -8,10 +8,19 @@
 
 import Foundation
 
-class Video {
+struct Video: Codable {
     var thumbnailImage: String?
     var title: String?
     var numberOfViews: Int?
     var uploadDate: Date?
     var channel: Channel?
+    var duration: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case thumbnailImage = "thumbnail_image_name"
+        case title
+        case numberOfViews = "number_of_views"
+        case duration
+        case channel
+    }
 }
