@@ -9,27 +9,7 @@
 import UIKit
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
-//    let videos: [Video] = {
-//        let kissChannel = Channel()
-//        kissChannel.name = "KISSOfficial"
-//        kissChannel.profileImageName = "kiss_profile"
-//
-//        let loveGunVideo = Video()
-//        loveGunVideo.title = "KISS - Love Gun"
-//        loveGunVideo.thumbnailImage = "kiss"
-//        loveGunVideo.numberOfViews = 502_354_871
-//        loveGunVideo.channel = kissChannel
-//
-//        let liveVideo = Video()
-//        liveVideo.title = "Kiss. Live Concert in San Francisco at 2015"
-//        liveVideo.thumbnailImage = "kiss_live"
-//        liveVideo.numberOfViews = 138_925_529
-//        liveVideo.channel = kissChannel
-//
-//        return [loveGunVideo, liveVideo]
-//    }()
-    
+        
     var videos = [Video]()
     
     let menuBar: MenuBar = {
@@ -58,7 +38,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         Dataservice.shared.downloadVideos { (videos) in
             self.videos = videos
-            print(videos)
             self.collectionView.reloadData()
         }
     }

@@ -13,11 +13,15 @@ class VideoCell: BaseCell {
     var video: Video? {
         didSet {
             titleLabel.text = video?.title
-            Dataservice.shared.downloadImage(from: video!.thumbnailImage!) { (image) in
-                self.thumbnailImageView.image = image
+            Dataservice.shared.downloadImage(from: video!.thumbnailImage!) { (image, imageUrl)  in
+                if imageUrl == self.video!.thumbnailImage! {
+                    self.thumbnailImageView.image = image
+                }
             }
-            Dataservice.shared.downloadImage(from: video!.channel!.profileImageName!) { (image) in
-                self.userProfileImageView.image = image
+            Dataservice.shared.downloadImage(from: video!.channel!.profileImageName!) { (image, imageUrl) in
+                if imageUrl == self.video!.channel!.profileImageName! {
+                    self.userProfileImageView.image = image
+                }
             }
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -29,7 +33,6 @@ class VideoCell: BaseCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "kiss")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -37,7 +40,6 @@ class VideoCell: BaseCell {
     
     let userProfileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "kiss_profile")
         imageView.layer.cornerRadius = 22
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
@@ -91,6 +93,12 @@ class VideoCell: BaseCell {
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30))
         
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        thumbnailImageView.image = nil
+        userProfileImageView.image = nil
     }
     
 }

@@ -25,13 +25,14 @@ class Dataservice {
         task.resume()
     }
     
-    func downloadImage(from imageUrl: String, completion: @escaping (UIImage) -> ()) {
+    func downloadImage(from imageUrl: String, completion: @escaping (UIImage, String) -> ()) {
         let url = URL(string: imageUrl)!
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
-                    completion(image)
+                    // imageURL is needed for fast scrolling to avoid the wrong image be set in the cell
+                    completion(image, imageUrl)
                 }
             }
         }
