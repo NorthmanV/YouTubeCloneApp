@@ -16,6 +16,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         let menuBar = MenuBar()
         return menuBar
     }()
+    
+    let settingsLauncher = SettingsLauncher()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +63,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     @objc func handleMore() {
-        
+        settingsLauncher.showSettings()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
