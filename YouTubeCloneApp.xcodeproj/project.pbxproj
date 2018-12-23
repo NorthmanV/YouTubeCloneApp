@@ -21,6 +21,8 @@
 		87A0525C21BD2E8B00906306 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0525B21BD2E8B00906306 /* BaseCell.swift */; };
 		87C690CC21C823D2004E915D /* Dataservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C690CB21C823D2004E915D /* Dataservice.swift */; };
 		87C690CE21CE67C0004E915D /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C690CD21CE67C0004E915D /* SettingsLauncher.swift */; };
+		87C690D021CF9BDA004E915D /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C690CF21CF9BDA004E915D /* SettingCell.swift */; };
+		87C690D221CFA809004E915D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C690D121CFA809004E915D /* Setting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		87A0525B21BD2E8B00906306 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		87C690CB21C823D2004E915D /* Dataservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataservice.swift; sourceTree = "<group>"; };
 		87C690CD21CE67C0004E915D /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
+		87C690CF21CF9BDA004E915D /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		87C690D121CFA809004E915D /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 			children = (
 				8738A29E21C5129C0074865A /* Video.swift */,
 				8738A2A021C518E00074865A /* Channel.swift */,
+				87C690D121CFA809004E915D /* Setting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 				87A0525721BD25F300906306 /* MenuBar.swift */,
 				87A0524E21BAFB0200906306 /* VideoCell.swift */,
 				87A0525921BD2DE900906306 /* MenuCell.swift */,
+				87C690CF21CF9BDA004E915D /* SettingCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,9 +203,11 @@
 				8738A2A121C518E00074865A /* Channel.swift in Sources */,
 				87A0523F21B8537A00906306 /* HomeViewController.swift in Sources */,
 				87A0523D21B8537A00906306 /* AppDelegate.swift in Sources */,
+				87C690D221CFA809004E915D /* Setting.swift in Sources */,
 				87A0525821BD25F300906306 /* MenuBar.swift in Sources */,
 				8738A29F21C5129C0074865A /* Video.swift in Sources */,
 				87A0525C21BD2E8B00906306 /* BaseCell.swift in Sources */,
+				87C690D021CF9BDA004E915D /* SettingCell.swift in Sources */,
 				87C690CC21C823D2004E915D /* Dataservice.swift in Sources */,
 				87C690CE21CE67C0004E915D /* SettingsLauncher.swift in Sources */,
 				87A0525321BBE4FE00906306 /* UIColorExtension.swift in Sources */,

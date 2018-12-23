@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Channel: Codable {
+struct Channel: Codable {
     var name: String?
     var profileImageName: String?
     
