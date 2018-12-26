@@ -17,7 +17,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         return menuBar
     }()
     
-    let settingsLauncher = SettingsLauncher()
+    lazy var settingsLauncher: SettingsLauncher = {
+        let settings = SettingsLauncher()
+        settings.homeVC = self
+        return settings
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +68,14 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     @objc func handleMore() {
         settingsLauncher.showSettings()
+    }
+    
+    func presentSettingsVC(setting: Setting) {
+        let vc = UIViewController()
+        vc.navigationItem.title = setting.name
+        vc.view.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

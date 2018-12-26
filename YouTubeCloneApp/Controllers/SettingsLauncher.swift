@@ -10,12 +10,15 @@ import UIKit
 
 class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    let collectionView: UICollectionView = {
+    var blackView: UIView!
+
+    var collectionView: UICollectionView! = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .white
         return cv
     }()
+    weak var homeVC: HomeViewController!
     
     let cellId = "cellId"
     let cellHeight: CGFloat = 50
@@ -35,32 +38,37 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     
     @objc func showSettings() {
         if let window = UIApplication.shared.keyWindow {
-            let blackView = UIView()
+            blackView = UIView()
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
             window.addSubview(blackView)
             blackView.frame = window.frame
             blackView.alpha = 0
             
-            blackView.addSubview(collectionView)
+            window.addSubview(collectionView)
             let height: CGFloat = CGFloat(settings.count) * cellHeight
             let y = blackView.frame.height - height
             collectionView.frame = CGRect(x: 0, y: blackView.frame.height, width: blackView.frame.width, height: height)
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                blackView.alpha = 1
-                self.collectionView.frame = CGRect(x: 0, y: y, width: blackView.frame.width, height: height)
+                self.blackView.alpha = 1
+                self.collectionView.frame = CGRect(x: 0, y: y, width: self.blackView.frame.width, height: height)
             }, completion: nil)
         }
     }
     
-    @objc func handleDismiss(recognizer: UITapGestureRecognizer) {
-        let blackView = recognizer.view!
+    @objc func handleDismiss(recognizer: UITapGestureRecognizer?) {
+        dismissSelf { }
+    }
+    
+    func dismissSelf(completion: @escaping () -> ()) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
-            blackView.alpha = 0
-            self.collectionView.frame = CGRect(x: 0, y: blackView.frame.height, width: blackView.frame.width, height: 200)
+            self.blackView.alpha = 0
+            self.collectionView.frame = CGRect(x: 0, y: self.blackView.frame.height, width: self.blackView.frame.width, height: 200)
         }) { (_) in
-            blackView.removeFromSuperview()
+            self.blackView.removeFromSuperview()
+            self.blackView = nil
+            completion()
         }
     }
     
@@ -80,6 +88,15 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dismissSelf {
+            let setting = self.settings[indexPath.row]
+            if setting.name != "Cancel" {
+                self.homeVC.presentSettingsVC(setting: setting)
+            }
+        }
     }
     
 }
