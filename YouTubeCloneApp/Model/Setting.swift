@@ -9,6 +9,15 @@
 import Foundation
 
 struct Setting {
-    let name: String
+    let name: SettingName
     let imageName: String
+}
+
+enum SettingName: String {
+    case settings = "Settings"
+    case termsAndPrivacyPolicy = "Terms & Privacy Policy"
+    case sendFeedback = "Send Feedback"
+    case help = "Help"
+    case switchAccount = "Switch Account"
+    case cancel = "Cancel"
 }

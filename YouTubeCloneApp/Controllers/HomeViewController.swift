@@ -72,7 +72,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func presentSettingsVC(setting: Setting) {
         let vc = UIViewController()
-        vc.navigationItem.title = setting.name
+        vc.navigationItem.title = setting.name.rawValue
         vc.view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .white
         navigationController?.pushViewController(vc, animated: true)

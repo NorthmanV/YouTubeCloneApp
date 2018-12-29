@@ -22,12 +22,12 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     
     let cellId = "cellId"
     let cellHeight: CGFloat = 50
-    let settings = [Setting(name: "Settings", imageName: "settings"),
-                    Setting(name: "Terms & Privacy Policy", imageName: "privacy"),
-                    Setting(name: "Send Feedback", imageName: "feedback"),
-                    Setting(name: "Help", imageName: "help"),
-                    Setting(name: "Switch Account", imageName: "account_dark"),
-                    Setting(name: "Cancel", imageName: "cancel")]
+    let settings = [Setting(name: .settings, imageName: "settings"),
+                    Setting(name: .termsAndPrivacyPolicy, imageName: "privacy"),
+                    Setting(name: .sendFeedback, imageName: "feedback"),
+                    Setting(name: .help, imageName: "help"),
+                    Setting(name: .switchAccount, imageName: "account_dark"),
+                    Setting(name: .cancel, imageName: "cancel")]
     
     override init() {
         super.init()
@@ -93,7 +93,7 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         dismissSelf {
             let setting = self.settings[indexPath.row]
-            if setting.name != "Cancel" {
+            if setting.name != .cancel {
                 self.homeVC.presentSettingsVC(setting: setting)
             }
         }
