@@ -9,9 +9,7 @@
 import UIKit
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-        
-    var videos = [Video]()
-    
+            
     lazy var menuBar: MenuBar = {
         let menuBar = MenuBar()
         menuBar.homeVC = self
@@ -29,6 +27,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     let cellId = "cellId"
+    let titles = ["Home", "Trending", "Subscriptions", "Account"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,15 +45,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         setupCollectionView()
         setupMenuBar()
         setupNavBarButtons()
-        Dataservice.shared.downloadVideos { (videos) in
-            self.videos = videos
-            self.collectionView.reloadData()
-        }
     }
     
     func setupCollectionView() {
         collectionView.backgroundColor = .white
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(FeedCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -109,13 +104,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        let colors: [UIColor] = [.green, .purple, .blue, .orange]
-        cell.backgroundColor = colors[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height)
+        return CGSize(width: view.frame.width, height: view.frame.height - 50) // 50 - menuBar height
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -125,32 +118,21 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     func scrollTo(menuIndex: Int) {
         let indexPath = IndexPath(item: menuIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        setTitleForIndex(indexPath.row)
     }
     
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let index = Int(targetContentOffset.pointee.x / view.frame.width)
         let indexPath = IndexPath(item: index, section: 0)
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        setTitleForIndex(index)
     }
     
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return videos.count
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-//        cell.video = videos[indexPath.row]
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let height: CGFloat = (view.frame.width - 32) * 9 / 16
-//        return CGSize(width: view.frame.width, height: height + 20 + 68)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-    
+    private func setTitleForIndex(_ index: Int) {
+        if let titleLabel = navigationItem.titleView as? UILabel {
+            titleLabel.text = titles[index]
+        }
+    }
+        
 }
 
