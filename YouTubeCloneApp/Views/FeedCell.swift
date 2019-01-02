@@ -12,6 +12,14 @@ class FeedCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataSource, 
     
     let cellId = "cellId"
     var videos = [Video]()
+    var title: String! {
+        didSet {
+            Dataservice.shared.downloadVideosFor(menuSection: title) { (videos) in
+                self.videos = videos
+                self.collectionView.reloadData()
+            }
+        }
+    }
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -28,10 +36,6 @@ class FeedCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataSource, 
         addSubview(collectionView)
         addConstraintsWithFormat("H:|[v0]|", views: collectionView)
         addConstraintsWithFormat("V:|[v0]|", views: collectionView)
-        Dataservice.shared.downloadVideos { (videos) in
-            self.videos = videos
-            self.collectionView.reloadData()
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

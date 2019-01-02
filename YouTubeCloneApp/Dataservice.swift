@@ -12,8 +12,8 @@ class Dataservice {
     static let shared = Dataservice()
     private init() {}
     
-    func downloadVideos(completion: @escaping ([Video]) -> ()) {
-        let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")!
+    func downloadVideosFor(menuSection: String, completion: @escaping ([Video]) -> ()) {
+        let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/\(menuSection).json")!
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data, let videos = try? JSONDecoder().decode([Video].self, from: data) {
