@@ -34,6 +34,15 @@ class VideoPlayerView: UIView {
         return button
     }()
     
+    let currentTimeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "00:00"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let videoLengthLabel: UILabel = {
         let label = UILabel()
         label.text = "00:00"
@@ -68,9 +77,19 @@ class VideoPlayerView: UIView {
         playerLayer.frame = frame
         player.play()
         player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
-        
+        let interval = CMTime(value: 1, timescale: 2)
+        player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { (progressTime) in
+            self.currentTimeLabel.text = self.createTimeFormattedText(duration: progressTime)
+            if let duration = self.player.currentItem?.duration {
+                let seconds = CMTimeGetSeconds(progressTime)
+                let durationSeconds = CMTimeGetSeconds(duration)
+                self.videoSlider.value = Float(seconds / durationSeconds)
+            }
+        }
+
         controlsContainerView.frame = frame
         addSubview(controlsContainerView)
+        addGradientLayer()
         
         controlsContainerView.addSubview(activityIndicatorView)
         activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -84,9 +103,14 @@ class VideoPlayerView: UIView {
         videoLengthLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -8).isActive = true
         videoLengthLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
         
+        controlsContainerView.addSubview(currentTimeLabel)
+        currentTimeLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 4).isActive = true
+        currentTimeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+        currentTimeLabel.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        
         controlsContainerView.addSubview(videoSlider)
-        videoSlider.rightAnchor.constraint(equalTo: videoLengthLabel.leftAnchor).isActive = true
-        videoSlider.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        videoSlider.rightAnchor.constraint(equalTo: videoLengthLabel.leftAnchor, constant: -4).isActive = true
+        videoSlider.leftAnchor.constraint(equalTo: currentTimeLabel.rightAnchor, constant: 4).isActive = true
         videoSlider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
     }
     
@@ -101,10 +125,7 @@ class VideoPlayerView: UIView {
             pausePlayButton.isHidden = false
             isPlaying = true
             if let duration = player.currentItem?.duration {
-                let seconds = CMTimeGetSeconds(duration)
-                let secondsText =  String(format: "%02d", Int(seconds) % 60)
-                let minutesText = String(format: "%02d", Int(seconds) / 60)
-                videoLengthLabel.text = "\(minutesText):\(secondsText)"
+                videoLengthLabel.text = createTimeFormattedText(duration: duration)
             }
         }
     }
@@ -128,8 +149,22 @@ class VideoPlayerView: UIView {
             player.seek(to: seekTime) { (isCompleted) in
                 
             }
-            
         }
+    }
+    
+    private func addGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+        gradientLayer.locations = [0.7, 1.2]
+        controlsContainerView.layer.addSublayer(gradientLayer)
+    }
+    
+    private func createTimeFormattedText(duration: CMTime) -> String {
+        let seconds = CMTimeGetSeconds(duration)
+        let secondsText =  String(format: "%02d", Int(seconds) % 60)
+        let minutesText = String(format: "%02d", Int(seconds) / 60)
+        return "\(minutesText):\(secondsText)"
     }
     
 }
